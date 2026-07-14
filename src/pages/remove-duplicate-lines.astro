@@ -1,0 +1,141 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout
+  title="Remove Duplicate Lines — Online Duplicate Line Remover | QuickTextConverter"
+  description="Free online tool to remove duplicate lines from text instantly. Case-sensitive or case-insensitive matching. Keep original order or sort the result."
+  canonical="https://quicktextconverter.com/remove-duplicate-lines"
+>
+  <h1 class="text-3xl font-bold text-gray-900 mb-2">Remove Duplicate Lines</h1>
+  <p class="text-gray-500 mb-6">Paste your text below and instantly remove all duplicate lines.</p>
+
+  <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+    <textarea
+      id="input"
+      rows="8"
+      placeholder="Paste your text here — one item per line..."
+      class="w-full resize-y rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 font-mono"
+    ></textarea>
+
+    <div class="flex flex-wrap gap-4 my-4 items-center">
+      <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+        <input type="checkbox" id="case-sensitive" checked class="accent-blue-600" />
+        Case-sensitive matching
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+        <input type="checkbox" id="remove-blank" class="accent-blue-600" />
+        Remove blank lines too
+      </label>
+      <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+        <input type="checkbox" id="sort-lines" class="accent-blue-600" />
+        Sort result A–Z
+      </label>
+    </div>
+
+    <textarea
+      id="output"
+      rows="8"
+      readonly
+      placeholder="Deduplicated text will appear here..."
+      class="w-full resize-y rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm font-mono focus:outline-none"
+    ></textarea>
+
+    <div class="flex items-center justify-between mt-3">
+      <span id="stats" class="text-sm text-gray-500"></span>
+      <button
+        id="copy-btn"
+        class="text-sm bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+      >
+        Copy to clipboard
+      </button>
+    </div>
+  </div>
+
+  <div class="mt-8 prose prose-sm max-w-none text-gray-600">
+    <h2 class="text-lg font-semibold text-gray-800">When would you need to remove duplicate lines?</h2>
+    <ul class="space-y-1 list-disc pl-5">
+      <li><strong>Cleaning up lists</strong> — email lists, keyword lists, URL lists with duplicates</li>
+      <li><strong>Data processing</strong> — removing repeated rows from exported CSV or log files</li>
+      <li><strong>Code cleanup</strong> — deduplicating imports, IDs, or configuration entries</li>
+      <li><strong>SEO keyword lists</strong> — remove duplicate keywords before uploading to ad platforms</li>
+    </ul>
+  </div>
+</Layout>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I remove duplicate lines from text online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste your text into the box above — one item per line. The tool instantly removes all duplicate lines and shows the unique lines in the output box. You can then copy the result to your clipboard."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does case-sensitive matching mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "With case-sensitive matching enabled, 'Apple' and 'apple' are treated as different lines and both are kept. With case-sensitive matching disabled, they are treated as the same line and only one is kept."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I sort the lines after removing duplicates?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — check the 'Sort result A–Z' option before or after pasting your text. The unique lines will be sorted alphabetically in the output."
+      }
+    }
+  ]
+}
+</script>
+
+<script is:inline>
+  function process() {
+    const input = document.getElementById('input').value
+    const caseSensitive = document.getElementById('case-sensitive').checked
+    const removeBlank = document.getElementById('remove-blank').checked
+    const sortLines = document.getElementById('sort-lines').checked
+
+    let lines = input.split('\n')
+    const total = lines.length
+
+    if (removeBlank) lines = lines.filter(l => l.trim() !== '')
+
+    const seen = new Set()
+    const unique = lines.filter(line => {
+      const key = caseSensitive ? line : line.toLowerCase()
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    })
+
+    if (sortLines) unique.sort((a, b) => a.localeCompare(b, undefined, { sensitivity: caseSensitive ? 'case' : 'base' }))
+
+    const removed = total - unique.length
+    document.getElementById('output').value = unique.join('\n')
+    document.getElementById('stats').textContent = unique.length
+      ? `${unique.length} unique line${unique.length !== 1 ? 's' : ''} · ${removed} duplicate${removed !== 1 ? 's' : ''} removed`
+      : ''
+  }
+
+  document.getElementById('input').addEventListener('input', process)
+  document.getElementById('case-sensitive').addEventListener('change', process)
+  document.getElementById('remove-blank').addEventListener('change', process)
+  document.getElementById('sort-lines').addEventListener('change', process)
+
+  document.getElementById('copy-btn').addEventListener('click', () => {
+    const output = document.getElementById('output')
+    if (!output.value) return
+    navigator.clipboard.writeText(output.value)
+    const btn = document.getElementById('copy-btn')
+    btn.textContent = 'Copied!'
+    setTimeout(() => btn.textContent = 'Copy to clipboard', 1500)
+  })
+</script>

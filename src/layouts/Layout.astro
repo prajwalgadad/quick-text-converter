@@ -14,9 +14,13 @@ const url = canonical || Astro.url.href
 const tools = [
   { name: 'Case Converter', href: '/case-converter', desc: 'UPPER, lower, Title, camelCase & more' },
   { name: 'Word Counter', href: '/word-counter', desc: 'Count words, characters & reading time' },
+  { name: 'Fancy Text Generator', href: '/fancy-text-generator', desc: 'Cool Unicode fonts for Instagram & Discord' },
   { name: 'Character Counter', href: '/character-counter', desc: 'Count characters with & without spaces' },
   { name: 'Lorem Ipsum Generator', href: '/lorem-ipsum-generator', desc: 'Generate placeholder text instantly' },
   { name: 'Random Word Generator', href: '/random-word-generator', desc: 'Generate random words for any use' },
+  { name: 'Text Repeater', href: '/text-repeater', desc: 'Repeat text any number of times' },
+  { name: 'Text to Slug', href: '/text-to-slug', desc: 'Convert titles to SEO-friendly URL slugs' },
+  { name: 'Remove Duplicate Lines', href: '/remove-duplicate-lines', desc: 'Remove repeated lines from any list' },
 ]
 ---
 
@@ -42,10 +46,21 @@ const tools = [
         <a href="/" class="text-xl font-bold text-blue-600 hover:text-blue-700 shrink-0 mr-8">
           QuickTextConverter
         </a>
-        <nav class="hidden md:flex gap-4 text-sm text-gray-600">
-          {tools.map(t => (
-            <a href={t.href} class="hover:text-blue-600 transition-colors">{t.name}</a>
+        <nav class="hidden md:flex items-center gap-1 text-sm text-gray-600">
+          {tools.slice(0, 4).map(t => (
+            <a href={t.href} class="px-3 py-1.5 rounded-lg hover:bg-gray-100 hover:text-blue-600 transition-colors whitespace-nowrap">{t.name}</a>
           ))}
+          <div class="relative group">
+            <button class="flex items-center gap-1 px-3 py-1.5 rounded-lg hover:bg-gray-100 hover:text-blue-600 transition-colors cursor-pointer">
+              More
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </button>
+            <div class="absolute right-0 top-full mt-1 w-52 bg-white border border-gray-200 rounded-xl shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+              {tools.slice(4).map(t => (
+                <a href={t.href} class="block px-4 py-2.5 hover:bg-blue-50 hover:text-blue-700 first:rounded-t-xl last:rounded-b-xl transition-colors">{t.name}</a>
+              ))}
+            </div>
+          </div>
         </nav>
       </div>
     </header>

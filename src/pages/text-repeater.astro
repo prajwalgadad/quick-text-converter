@@ -1,0 +1,137 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout
+  title="Text Repeater — Repeat Text Online Free | QuickTextConverter"
+  description="Free online text repeater. Repeat any text, word or sentence multiple times with custom separators. Instantly copy the result."
+  canonical="https://quicktextconverter.com/text-repeater"
+>
+  <h1 class="text-3xl font-bold text-gray-900 mb-2">Text Repeater</h1>
+  <p class="text-gray-500 mb-6">Repeat any text multiple times with a separator of your choice.</p>
+
+  <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+    <textarea
+      id="input"
+      rows="4"
+      placeholder="Type or paste the text you want to repeat..."
+      class="w-full resize-y rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 font-mono"
+    ></textarea>
+
+    <div class="flex flex-wrap gap-4 my-4 items-end">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Repeat</label>
+        <input
+          id="count"
+          type="number"
+          min="1"
+          max="1000"
+          value="3"
+          class="w-24 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+        />
+        <span class="text-sm text-gray-500 ml-2">times</span>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">Separator</label>
+        <select id="separator" class="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+          <option value="newline">New line</option>
+          <option value="space">Space</option>
+          <option value="comma">Comma</option>
+          <option value="none">None (no separator)</option>
+        </select>
+      </div>
+      <button
+        id="repeat-btn"
+        class="px-5 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors"
+      >
+        Repeat
+      </button>
+    </div>
+
+    <textarea
+      id="output"
+      rows="6"
+      readonly
+      placeholder="Repeated text will appear here..."
+      class="w-full resize-y rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm font-mono focus:outline-none"
+    ></textarea>
+    <div class="flex justify-end mt-2">
+      <button
+        id="copy-btn"
+        class="text-sm bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+      >
+        Copy to clipboard
+      </button>
+    </div>
+  </div>
+
+  <div class="mt-8 prose prose-sm max-w-none text-gray-600">
+    <h2 class="text-lg font-semibold text-gray-800">What is a text repeater used for?</h2>
+    <ul class="space-y-1 list-disc pl-5">
+      <li><strong>Testing</strong> — fill a text field or database column with repeated dummy data</li>
+      <li><strong>Design mockups</strong> — quickly generate repeated placeholder content</li>
+      <li><strong>Copy-paste shortcuts</strong> — repeat a phrase or signature many times at once</li>
+      <li><strong>Fun</strong> — repeat words or sentences for emphasis or jokes</li>
+    </ul>
+  </div>
+</Layout>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I repeat text multiple times online?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Type or paste your text in the box above, choose how many times to repeat it and select a separator (new line, space, comma, or none), then click Repeat. The result appears instantly and can be copied to your clipboard."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What separators can I use between repeated text?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can separate repeated text with a new line (each repetition on its own line), a space, a comma, or no separator at all (the text is joined directly together)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many times can I repeat text?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can repeat text up to 1000 times using this tool. Just enter the number of repetitions in the Repeat field and click the Repeat button."
+      }
+    }
+  ]
+}
+</script>
+
+<script is:inline>
+  function getseparator() {
+    const val = document.getElementById('separator').value
+    if (val === 'newline') return '\n'
+    if (val === 'space') return ' '
+    if (val === 'comma') return ', '
+    return ''
+  }
+
+  document.getElementById('repeat-btn').addEventListener('click', () => {
+    const text = document.getElementById('input').value
+    if (!text) return
+    const count = Math.max(1, Math.min(1000, parseInt(document.getElementById('count').value) || 3))
+    const sep = getseparator()
+    document.getElementById('output').value = Array(count).fill(text).join(sep)
+  })
+
+  document.getElementById('copy-btn').addEventListener('click', () => {
+    const output = document.getElementById('output')
+    if (!output.value) return
+    navigator.clipboard.writeText(output.value)
+    const btn = document.getElementById('copy-btn')
+    btn.textContent = 'Copied!'
+    setTimeout(() => btn.textContent = 'Copy to clipboard', 1500)
+  })
+</script>

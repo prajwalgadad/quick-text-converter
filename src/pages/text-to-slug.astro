@@ -1,0 +1,130 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout
+  title="Text to Slug Converter — Generate URL Slugs Online | QuickTextConverter"
+  description="Free online slug generator. Convert any title or text into a clean URL slug instantly. Perfect for blog posts, pages, and SEO-friendly URLs."
+  canonical="https://quicktextconverter.com/text-to-slug"
+>
+  <h1 class="text-3xl font-bold text-gray-900 mb-2">Text to Slug Converter</h1>
+  <p class="text-gray-500 mb-6">Convert any title or phrase into a clean, SEO-friendly URL slug.</p>
+
+  <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+    <input
+      id="input"
+      type="text"
+      placeholder="e.g. How to Make the Perfect Cup of Coffee"
+      class="w-full rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+    />
+
+    <div class="flex flex-wrap gap-4 my-4 items-center">
+      <div class="flex items-center gap-2">
+        <span class="text-sm font-medium text-gray-700">Separator:</span>
+        <label class="flex items-center gap-1 text-sm text-gray-600 cursor-pointer">
+          <input type="radio" name="sep" value="hyphen" checked class="accent-blue-600" /> hyphen (-)
+        </label>
+        <label class="flex items-center gap-1 text-sm text-gray-600 cursor-pointer">
+          <input type="radio" name="sep" value="underscore" class="accent-blue-600" /> underscore (_)
+        </label>
+      </div>
+      <label class="flex items-center gap-2 text-sm text-gray-600 cursor-pointer">
+        <input type="checkbox" id="lowercase" checked class="accent-blue-600" /> Lowercase
+      </label>
+    </div>
+
+    <div class="relative">
+      <input
+        id="output"
+        type="text"
+        readonly
+        placeholder="your-slug-will-appear-here"
+        class="w-full rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm font-mono focus:outline-none pr-28"
+      />
+      <button
+        id="copy-btn"
+        class="absolute right-2 top-1/2 -translate-y-1/2 text-sm bg-blue-600 text-white px-4 py-1.5 rounded-md hover:bg-blue-700 transition-colors"
+      >
+        Copy
+      </button>
+    </div>
+  </div>
+
+  <div class="mt-8 prose prose-sm max-w-none text-gray-600">
+    <h2 class="text-lg font-semibold text-gray-800">What is a URL slug?</h2>
+    <p>A URL slug is the part of a web address that identifies a specific page in a human-readable way. For example, in <code>https://example.com/how-to-make-coffee</code>, the slug is <code>how-to-make-coffee</code>.</p>
+    <h2 class="text-lg font-semibold text-gray-800 mt-4">Tips for good URL slugs</h2>
+    <ul class="space-y-1 list-disc pl-5">
+      <li>Keep them short — ideally under 5 words</li>
+      <li>Use hyphens to separate words (Google recommends hyphens over underscores)</li>
+      <li>Include your main keyword</li>
+      <li>Remove stop words like "a", "the", "and" where possible</li>
+      <li>Always use lowercase — URLs are case-sensitive on most servers</li>
+    </ul>
+  </div>
+</Layout>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a URL slug?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A URL slug is the human-readable part of a web address that identifies a specific page. For example, in https://example.com/how-to-make-coffee, the slug is 'how-to-make-coffee'. Slugs should be lowercase, use hyphens between words, and include relevant keywords."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use hyphens or underscores in URL slugs?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Google officially recommends using hyphens (-) rather than underscores (_) to separate words in URL slugs. Google treats hyphens as word separators, while underscores join words together, which can hurt SEO."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I create an SEO-friendly URL slug?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste your page title into the slug converter above and it will automatically generate a clean, SEO-friendly slug. Good slugs are lowercase, use hyphens between words, include the main keyword, and are as short as possible while still being descriptive."
+      }
+    }
+  ]
+}
+</script>
+
+<script is:inline>
+  function toSlug(text, sep, lower) {
+    let s = text
+      .normalize('NFD')
+      .replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-zA-Z0-9\s-]/g, '')
+      .trim()
+      .replace(/\s+/g, sep)
+    return lower ? s.toLowerCase() : s
+  }
+
+  function update() {
+    const text = document.getElementById('input').value
+    const sep = document.querySelector('input[name="sep"]:checked').value === 'hyphen' ? '-' : '_'
+    const lower = document.getElementById('lowercase').checked
+    document.getElementById('output').value = text ? toSlug(text, sep, lower) : ''
+  }
+
+  document.getElementById('input').addEventListener('input', update)
+  document.querySelectorAll('input[name="sep"]').forEach(r => r.addEventListener('change', update))
+  document.getElementById('lowercase').addEventListener('change', update)
+
+  document.getElementById('copy-btn').addEventListener('click', () => {
+    const output = document.getElementById('output')
+    if (!output.value) return
+    navigator.clipboard.writeText(output.value)
+    const btn = document.getElementById('copy-btn')
+    btn.textContent = 'Copied!'
+    setTimeout(() => btn.textContent = 'Copy', 1500)
+  })
+</script>
