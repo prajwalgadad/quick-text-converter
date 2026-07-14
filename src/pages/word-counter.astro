@@ -1,0 +1,84 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout
+  title="Word Counter — Count Words & Characters Online | QuickTextConverter"
+  description="Free online word counter. Instantly count words, characters, sentences, paragraphs and reading time as you type. No signup required."
+  canonical="https://quicktextconverter.com/word-counter"
+>
+  <h1 class="text-3xl font-bold text-gray-900 mb-2">Word Counter</h1>
+  <p class="text-gray-500 mb-6">Type or paste your text below — counts update instantly as you type.</p>
+
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+    <div class="bg-white rounded-xl border border-gray-200 p-4 text-center shadow-sm">
+      <p id="word-count" class="text-3xl font-bold text-blue-600">0</p>
+      <p class="text-xs text-gray-500 mt-1 uppercase tracking-wide">Words</p>
+    </div>
+    <div class="bg-white rounded-xl border border-gray-200 p-4 text-center shadow-sm">
+      <p id="char-count" class="text-3xl font-bold text-blue-600">0</p>
+      <p class="text-xs text-gray-500 mt-1 uppercase tracking-wide">Characters</p>
+    </div>
+    <div class="bg-white rounded-xl border border-gray-200 p-4 text-center shadow-sm">
+      <p id="sentence-count" class="text-3xl font-bold text-blue-600">0</p>
+      <p class="text-xs text-gray-500 mt-1 uppercase tracking-wide">Sentences</p>
+    </div>
+    <div class="bg-white rounded-xl border border-gray-200 p-4 text-center shadow-sm">
+      <p id="read-time" class="text-3xl font-bold text-blue-600">0s</p>
+      <p class="text-xs text-gray-500 mt-1 uppercase tracking-wide">Read Time</p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+    <textarea
+      id="input"
+      rows="12"
+      placeholder="Start typing or paste your text here..."
+      class="w-full resize-y rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+    ></textarea>
+    <div class="flex justify-between mt-3 text-sm text-gray-500">
+      <span>Paragraphs: <strong id="para-count" class="text-gray-800">0</strong></span>
+      <button id="clear-btn" class="text-red-400 hover:text-red-600 transition-colors">Clear</button>
+    </div>
+  </div>
+
+  <div class="mt-8 prose prose-sm max-w-none text-gray-600">
+    <h2 class="text-lg font-semibold text-gray-800">About this Word Counter</h2>
+    <p>This free word counter updates in real time as you type. It counts:</p>
+    <ul class="space-y-1 list-disc pl-5">
+      <li><strong>Words</strong> — any sequence of characters separated by spaces</li>
+      <li><strong>Characters</strong> — every character including spaces and punctuation</li>
+      <li><strong>Sentences</strong> — text ending with a period, exclamation or question mark</li>
+      <li><strong>Paragraphs</strong> — blocks of text separated by a blank line</li>
+      <li><strong>Reading time</strong> — based on an average of 200 words per minute</li>
+    </ul>
+  </div>
+</Layout>
+
+<script is:inline>
+  const input = document.getElementById('input')
+
+  function update() {
+    const text = input.value
+
+    const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length
+    const chars = text.length
+    const sentences = text === '' ? 0 : (text.match(/[.!?]+/g) || []).length
+    const paragraphs = text.trim() === '' ? 0 : text.trim().split(/\n\s*\n/).length
+    const seconds = Math.ceil((words / 200) * 60)
+    const readTime = seconds < 60 ? seconds + 's' : Math.ceil(seconds / 60) + 'm'
+
+    document.getElementById('word-count').textContent = words
+    document.getElementById('char-count').textContent = chars
+    document.getElementById('sentence-count').textContent = sentences
+    document.getElementById('para-count').textContent = paragraphs
+    document.getElementById('read-time').textContent = words === 0 ? '0s' : readTime
+  }
+
+  input.addEventListener('input', update)
+
+  document.getElementById('clear-btn').addEventListener('click', () => {
+    input.value = ''
+    update()
+  })
+</script>

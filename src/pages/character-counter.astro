@@ -1,0 +1,90 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout
+  title="Character Counter — Count Characters Online Free | QuickTextConverter"
+  description="Free online character counter. Count characters with and without spaces in real time. Perfect for Twitter, Instagram bios, meta descriptions and SEO."
+  canonical="https://quicktextconverter.com/character-counter"
+>
+  <h1 class="text-3xl font-bold text-gray-900 mb-2">Character Counter</h1>
+  <p class="text-gray-500 mb-6">Type or paste your text to count characters instantly.</p>
+
+  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
+    <div class="bg-white rounded-xl border border-gray-200 p-4 text-center shadow-sm">
+      <p id="total-chars" class="text-3xl font-bold text-blue-600">0</p>
+      <p class="text-xs text-gray-500 mt-1 uppercase tracking-wide">Total Characters</p>
+    </div>
+    <div class="bg-white rounded-xl border border-gray-200 p-4 text-center shadow-sm">
+      <p id="no-space-chars" class="text-3xl font-bold text-blue-600">0</p>
+      <p class="text-xs text-gray-500 mt-1 uppercase tracking-wide">Without Spaces</p>
+    </div>
+    <div class="bg-white rounded-xl border border-gray-200 p-4 text-center shadow-sm">
+      <p id="word-count" class="text-3xl font-bold text-blue-600">0</p>
+      <p class="text-xs text-gray-500 mt-1 uppercase tracking-wide">Words</p>
+    </div>
+    <div class="bg-white rounded-xl border border-gray-200 p-4 text-center shadow-sm">
+      <p id="line-count" class="text-3xl font-bold text-blue-600">0</p>
+      <p class="text-xs text-gray-500 mt-1 uppercase tracking-wide">Lines</p>
+    </div>
+  </div>
+
+  <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+    <textarea
+      id="input"
+      rows="10"
+      placeholder="Start typing or paste your text here..."
+      class="w-full resize-y rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+    ></textarea>
+
+    <div class="mt-4 grid grid-cols-2 sm:grid-cols-4 gap-2 text-sm">
+      {[
+        { id: 'limit-twitter', label: 'Twitter/X (280)', max: 280 },
+        { id: 'limit-meta', label: 'Meta Description (160)', max: 160 },
+        { id: 'limit-title', label: 'SEO Title (60)', max: 60 },
+        { id: 'limit-sms', label: 'SMS (160)', max: 160 },
+      ].map(l => (
+        <div class="bg-gray-50 rounded-lg p-2 text-center border border-gray-200">
+          <p class="text-xs text-gray-500">{l.label}</p>
+          <p id={l.id} class="font-semibold text-gray-800 mt-0.5">0 / {l.max}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="mt-8 prose prose-sm max-w-none text-gray-600">
+    <h2 class="text-lg font-semibold text-gray-800">Character limits reference</h2>
+    <ul class="space-y-1 list-disc pl-5">
+      <li><strong>Twitter / X post:</strong> 280 characters</li>
+      <li><strong>Instagram bio:</strong> 150 characters</li>
+      <li><strong>Meta description:</strong> 150–160 characters</li>
+      <li><strong>SEO page title:</strong> 50–60 characters</li>
+      <li><strong>SMS message:</strong> 160 characters per segment</li>
+      <li><strong>Google Ads headline:</strong> 30 characters</li>
+    </ul>
+  </div>
+</Layout>
+
+<script is:inline>
+  const input = document.getElementById('input')
+
+  function update() {
+    const text = input.value
+    const total = text.length
+    const noSpaces = text.replace(/\s/g, '').length
+    const words = text.trim() === '' ? 0 : text.trim().split(/\s+/).length
+    const lines = text === '' ? 0 : text.split('\n').length
+
+    document.getElementById('total-chars').textContent = total
+    document.getElementById('no-space-chars').textContent = noSpaces
+    document.getElementById('word-count').textContent = words
+    document.getElementById('line-count').textContent = lines
+
+    document.getElementById('limit-twitter').textContent = total + ' / 280'
+    document.getElementById('limit-meta').textContent = total + ' / 160'
+    document.getElementById('limit-title').textContent = total + ' / 60'
+    document.getElementById('limit-sms').textContent = total + ' / 160'
+  }
+
+  input.addEventListener('input', update)
+</script>

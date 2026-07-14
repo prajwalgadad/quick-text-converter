@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro'
+
+const tools = [
+  {
+    name: 'Case Converter',
+    href: '/case-converter',
+    desc: 'Convert text to UPPERCASE, lowercase, Title Case, camelCase, snake_case and more — instantly.',
+    icon: 'Aa',
+  },
+  {
+    name: 'Word Counter',
+    href: '/word-counter',
+    desc: 'Count words, characters, sentences, paragraphs and estimated reading time in real time.',
+    icon: '#',
+  },
+  {
+    name: 'Character Counter',
+    href: '/character-counter',
+    desc: 'Count characters with and without spaces. Perfect for Twitter, meta descriptions and forms.',
+    icon: 'C',
+  },
+  {
+    name: 'Lorem Ipsum Generator',
+    href: '/lorem-ipsum-generator',
+    desc: 'Generate clean Lorem Ipsum placeholder text by paragraphs, sentences or words.',
+    icon: '¶',
+  },
+  {
+    name: 'Random Word Generator',
+    href: '/random-word-generator',
+    desc: 'Generate random words for brainstorming, games, writing prompts and creative projects.',
+    icon: '?',
+  },
+]
+---
+
+<Layout
+  title="QuickTextConverter — Free Online Text Tools"
+  description="Free online text tools: case converter, word counter, character counter, lorem ipsum generator and random word generator. No signup, no ads, instant results."
+  showMoreTools={false}
+>
+  <div class="text-center mb-10">
+    <h1 class="text-4xl font-bold text-gray-900 mb-3">Free Online Text Tools</h1>
+    <p class="text-lg text-gray-500 max-w-xl mx-auto">
+      Simple, fast tools for writers, developers and students. No signup required.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    {tools.map(tool => (
+      <a
+        href={tool.href}
+        class="flex gap-4 p-5 bg-white rounded-xl border border-gray-200 hover:border-blue-400 hover:shadow-md transition-all group"
+      >
+        <div class="w-12 h-12 rounded-lg bg-blue-50 text-blue-600 font-bold text-xl flex items-center justify-center shrink-0 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+          {tool.icon}
+        </div>
+        <div>
+          <h2 class="font-semibold text-gray-900 group-hover:text-blue-700">{tool.name}</h2>
+          <p class="text-sm text-gray-500 mt-1">{tool.desc}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+</Layout>

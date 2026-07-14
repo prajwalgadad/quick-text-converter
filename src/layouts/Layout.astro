@@ -1,0 +1,85 @@
+---
+import '../styles/global.css'
+
+interface Props {
+  title: string
+  description: string
+  canonical?: string
+  showMoreTools?: boolean
+}
+
+const { title, description, canonical, showMoreTools = true } = Astro.props
+const url = canonical || Astro.url.href
+
+const tools = [
+  { name: 'Case Converter', href: '/case-converter', desc: 'UPPER, lower, Title, camelCase & more' },
+  { name: 'Word Counter', href: '/word-counter', desc: 'Count words, characters & reading time' },
+  { name: 'Character Counter', href: '/character-counter', desc: 'Count characters with & without spaces' },
+  { name: 'Lorem Ipsum Generator', href: '/lorem-ipsum-generator', desc: 'Generate placeholder text instantly' },
+  { name: 'Random Word Generator', href: '/random-word-generator', desc: 'Generate random words for any use' },
+]
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={url} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="robots" content="index, follow" />
+    <!-- AdSense placeholder -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX" crossorigin="anonymous"></script> -->
+  </head>
+  <body class="bg-gray-50 text-gray-800 min-h-screen flex flex-col">
+
+    <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <div class="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
+        <a href="/" class="text-xl font-bold text-blue-600 hover:text-blue-700 shrink-0 mr-8">
+          QuickTextConverter
+        </a>
+        <nav class="hidden md:flex gap-4 text-sm text-gray-600">
+          {tools.map(t => (
+            <a href={t.href} class="hover:text-blue-600 transition-colors">{t.name}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+
+    <main class="flex-1 max-w-4xl mx-auto w-full px-4 py-8">
+      <slot />
+    </main>
+
+    {showMoreTools && (
+      <section class="bg-white border-t border-gray-100 py-8 mt-8">
+        <div class="max-w-4xl mx-auto px-4">
+          <p class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">More Free Text Tools</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+            {tools.map(t => (
+              <a href={t.href} class="block p-3 rounded-lg border border-gray-200 hover:border-blue-400 hover:bg-blue-50 transition-all group">
+                <p class="font-medium text-gray-800 group-hover:text-blue-700">{t.name}</p>
+                <p class="text-xs text-gray-500 mt-0.5">{t.desc}</p>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <footer class="bg-gray-800 text-gray-400 text-sm py-6">
+      <div class="max-w-4xl mx-auto px-4">
+        <p class="mb-3">&copy; {new Date().getFullYear()} QuickTextConverter.com — Free online text tools</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2">
+          {tools.map(t => (
+            <a href={t.href} class="hover:text-white transition-colors truncate">{t.name}</a>
+          ))}
+        </div>
+      </div>
+    </footer>
+
+  </body>
+</html>

@@ -1,0 +1,133 @@
+---
+import Layout from '../layouts/Layout.astro'
+---
+
+<Layout
+  title="Case Converter — Convert Text to Any Case Online | QuickTextConverter"
+  description="Free online case converter. Instantly convert text to UPPERCASE, lowercase, Title Case, Sentence case, camelCase, snake_case, kebab-case and more."
+  canonical="https://quicktextconverter.com/case-converter"
+>
+  <h1 class="text-3xl font-bold text-gray-900 mb-2">Case Converter</h1>
+  <p class="text-gray-500 mb-6">Paste your text below and click any button to convert it instantly.</p>
+
+  <div class="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
+    <textarea
+      id="input"
+      rows="6"
+      placeholder="Paste or type your text here..."
+      class="w-full resize-y rounded-lg border border-gray-300 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 font-mono"
+    ></textarea>
+
+    <div class="flex flex-wrap gap-2 my-4">
+      <button data-case="upper"     class="px-3 py-1.5 text-sm rounded-md border border-gray-300 bg-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-pointer font-mono">UPPERCASE</button>
+      <button data-case="lower"     class="px-3 py-1.5 text-sm rounded-md border border-gray-300 bg-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-pointer font-mono">lowercase</button>
+      <button data-case="title"     class="px-3 py-1.5 text-sm rounded-md border border-gray-300 bg-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-pointer font-mono">Title Case</button>
+      <button data-case="sentence"  class="px-3 py-1.5 text-sm rounded-md border border-gray-300 bg-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-pointer font-mono">Sentence case</button>
+      <button data-case="camel"     class="px-3 py-1.5 text-sm rounded-md border border-gray-300 bg-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-pointer font-mono">camelCase</button>
+      <button data-case="pascal"    class="px-3 py-1.5 text-sm rounded-md border border-gray-300 bg-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-pointer font-mono">PascalCase</button>
+      <button data-case="snake"     class="px-3 py-1.5 text-sm rounded-md border border-gray-300 bg-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-pointer font-mono">snake_case</button>
+      <button data-case="kebab"     class="px-3 py-1.5 text-sm rounded-md border border-gray-300 bg-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-pointer font-mono">kebab-case</button>
+      <button data-case="constant"  class="px-3 py-1.5 text-sm rounded-md border border-gray-300 bg-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-pointer font-mono">CONSTANT_CASE</button>
+      <button data-case="alternate" class="px-3 py-1.5 text-sm rounded-md border border-gray-300 bg-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-pointer font-mono">aLtErNaTe</button>
+      <button data-case="inverse"   class="px-3 py-1.5 text-sm rounded-md border border-gray-300 bg-white hover:bg-blue-600 hover:text-white hover:border-blue-600 transition-all cursor-pointer font-mono">iNVERSE</button>
+    </div>
+
+    <textarea
+      id="output"
+      rows="6"
+      readonly
+      placeholder="Converted text will appear here..."
+      class="w-full resize-y rounded-lg border border-gray-300 bg-gray-50 p-3 text-sm font-mono focus:outline-none"
+    ></textarea>
+    <div class="flex justify-end mt-2">
+      <button
+        id="copy-btn"
+        class="text-sm bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors"
+      >
+        Copy to clipboard
+      </button>
+    </div>
+  </div>
+
+  <div class="mt-8 prose prose-sm max-w-none text-gray-600">
+    <h2 class="text-lg font-semibold text-gray-800">How to use the Case Converter</h2>
+    <p>Paste or type your text in the top box, then click whichever case style you need. The converted text instantly appears in the output box — click <strong>Copy</strong> to copy it to your clipboard.</p>
+    <h2 class="text-lg font-semibold text-gray-800 mt-4">What each case does</h2>
+    <ul class="space-y-1 list-disc pl-5">
+      <li><strong>UPPERCASE</strong> — every letter becomes capital</li>
+      <li><strong>lowercase</strong> — every letter becomes small</li>
+      <li><strong>Title Case</strong> — first letter of every word is capitalised</li>
+      <li><strong>Sentence case</strong> — first letter of each sentence is capitalised</li>
+      <li><strong>camelCase</strong> — used in JavaScript variable names</li>
+      <li><strong>PascalCase</strong> — used in class names and React components</li>
+      <li><strong>snake_case</strong> — used in Python and database column names</li>
+      <li><strong>kebab-case</strong> — used in CSS and URL slugs</li>
+      <li><strong>CONSTANT_CASE</strong> — used for constants in most languages</li>
+    </ul>
+  </div>
+</Layout>
+
+
+<script is:inline>
+  function toTitle(str) {
+    return str.replace(/\w\S*/g, w => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+  }
+  function toSentence(str) {
+    return str.replace(/(^\s*\w|[.!?]\s*\w)/g, c => c.toUpperCase()).replace(/([.!?]\s*)([A-Z])/g, (_, p, l) => _ )
+      .replace(/(^|\.\s+|\!\s+|\?\s+)([a-z])/g, (_, p, l) => p + l.toUpperCase())
+  }
+  function toCamel(str) {
+    return str.replace(/[^a-zA-Z0-9]+(.)/g, (_, c) => c.toUpperCase())
+      .replace(/^[A-Z]/, c => c.toLowerCase())
+  }
+  function toPascal(str) {
+    const camel = toCamel(str)
+    return camel.charAt(0).toUpperCase() + camel.slice(1)
+  }
+  function toSnake(str) {
+    return str.replace(/\W+/g, ' ').trim().split(' ').join('_').toLowerCase()
+  }
+  function toKebab(str) {
+    return str.replace(/\W+/g, ' ').trim().split(' ').join('-').toLowerCase()
+  }
+  function toConstant(str) {
+    return toSnake(str).toUpperCase()
+  }
+  function toAlternate(str) {
+    return str.split('').map((c, i) => i % 2 === 0 ? c.toLowerCase() : c.toUpperCase()).join('')
+  }
+  function toInverse(str) {
+    return str.split('').map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('')
+  }
+
+  const converters = {
+    upper:     s => s.toUpperCase(),
+    lower:     s => s.toLowerCase(),
+    title:     toTitle,
+    sentence:  toSentence,
+    camel:     toCamel,
+    pascal:    toPascal,
+    snake:     toSnake,
+    kebab:     toKebab,
+    constant:  toConstant,
+    alternate: toAlternate,
+    inverse:   toInverse,
+  }
+
+  document.querySelectorAll('[data-case]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const input = document.getElementById('input').value
+      const fn = converters[btn.dataset.case]
+      if (fn) document.getElementById('output').value = fn(input)
+    })
+  })
+
+  document.getElementById('copy-btn').addEventListener('click', () => {
+    const output = document.getElementById('output')
+    if (!output.value) return
+    navigator.clipboard.writeText(output.value)
+    const btn = document.getElementById('copy-btn')
+    btn.textContent = 'Copied!'
+    setTimeout(() => btn.textContent = 'Copy', 1500)
+  })
+</script>
