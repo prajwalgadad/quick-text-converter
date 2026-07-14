@@ -66,6 +66,47 @@ import Layout from '../layouts/Layout.astro'
   </div>
 </Layout>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Lorem Ipsum?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lorem Ipsum is placeholder text used by designers, developers, and publishers since the 1500s. It resembles readable text so layouts look realistic without distracting the viewer with meaningful content."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where does Lorem Ipsum come from?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lorem Ipsum originates from sections 1.10.32 and 1.10.33 of 'de Finibus Bonorum et Malorum' (On the Ends of Good and Evil) by the Roman philosopher Cicero, written in 45 BC."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do designers use Lorem Ipsum?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Designers use Lorem Ipsum because it has a natural distribution of letters and word lengths, making layouts look realistic. Using real content can distract reviewers from evaluating the design itself."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I generate Lorem Ipsum text?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use the Lorem Ipsum generator above. Choose how many paragraphs, sentences, or words you need, optionally start with the classic 'Lorem ipsum dolor sit amet...' opening, then click Generate and copy the result."
+      }
+    }
+  ]
+}
+</script>
+
 <script is:inline>
   const words = [
     'lorem','ipsum','dolor','sit','amet','consectetur','adipiscing','elit','sed','do',

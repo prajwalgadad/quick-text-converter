@@ -55,6 +55,47 @@ import Layout from '../layouts/Layout.astro'
   </div>
 </Layout>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How do I count words in a text?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Paste or type your text into the Word Counter tool above. It instantly counts the number of words, characters, sentences, paragraphs, and estimated reading time in real time as you type."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the average reading speed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The average adult reads approximately 200 words per minute. This tool uses 200 WPM to calculate the estimated reading time for your text."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many words should a blog post be?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most SEO experts recommend 1,500–2,500 words for a blog post that aims to rank in Google. Long-form content (2,000+ words) tends to rank higher for competitive keywords."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many words is a 5 minute speech?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "At an average speaking pace of 130 words per minute, a 5 minute speech is approximately 650 words. At a faster pace of 150 WPM it would be around 750 words."
+      }
+    }
+  ]
+}
+</script>
+
 <script is:inline>
   const input = document.getElementById('input')
 

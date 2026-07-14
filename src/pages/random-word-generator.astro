@@ -72,6 +72,47 @@ import Layout from '../layouts/Layout.astro'
   </div>
 </Layout>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What can I use a random word generator for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Random word generators are useful for writing prompts, brainstorming sessions, word games like Pictionary or charades, creating memorable passphrases, naming projects or brands, and sparking creative ideas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I generate random nouns, verbs, or adjectives separately?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Use the Word Type selector to choose Nouns, Verbs, Adjectives, or Mixed. You can also set how many words to generate (up to 100) and display them as a list or comma-separated inline."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do random word generators work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This random word generator picks words at random from curated lists of nouns, verbs, and adjectives using JavaScript's Math.random() function. Each click produces a completely new random selection."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use random words for a passphrase?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Combining 3–4 random unrelated words creates a passphrase that is both memorable and very secure. For example 'tunnel radiant voyage' is far harder to crack than a short password with symbols."
+      }
+    }
+  ]
+}
+</script>
+
 <script is:inline>
   const wordLists = {
     nouns: [

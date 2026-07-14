@@ -65,6 +65,47 @@ import Layout from '../layouts/Layout.astro'
   </div>
 </Layout>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many characters are allowed in a tweet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "X (formerly Twitter) allows a maximum of 280 characters per tweet. Our character counter shows a live Twitter/X limit indicator so you can see exactly how many characters you have left."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long should a meta description be?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A meta description should be between 150–160 characters. Google truncates meta descriptions longer than 160 characters in search results. Aim for 155 characters to be safe."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long should an SEO title tag be?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "An SEO title tag should be under 60 characters. Google displays approximately 50–60 characters in search results before truncating. Keep your most important keywords near the beginning."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the character limit for an SMS message?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A single SMS message is limited to 160 characters. Messages longer than 160 characters are split into multiple segments and may incur additional charges depending on your carrier."
+      }
+    }
+  ]
+}
+</script>
+
 <script is:inline>
   const input = document.getElementById('input')
 

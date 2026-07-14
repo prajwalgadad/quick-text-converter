@@ -67,6 +67,54 @@ import Layout from '../layouts/Layout.astro'
   </div>
 </Layout>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a case converter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A case converter is a tool that transforms text between different capitalisation styles such as UPPERCASE, lowercase, Title Case, camelCase, snake_case, kebab-case and more — instantly, without retyping."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is camelCase used for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "camelCase is used for variable and function names in JavaScript, Java, and many other programming languages. Words are joined together with each word after the first starting with a capital letter, e.g. myVariableName."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is snake_case used for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "snake_case is commonly used in Python, Ruby, and database column names. Words are separated by underscores and all letters are lowercase, e.g. my_variable_name."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between Title Case and Sentence case?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Title Case capitalises the first letter of every word (e.g. The Quick Brown Fox). Sentence case only capitalises the first letter of the first word in each sentence (e.g. The quick brown fox)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is kebab-case used for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "kebab-case is used in CSS class names, HTML attributes, and URL slugs. Words are separated by hyphens and all letters are lowercase, e.g. my-class-name."
+      }
+    }
+  ]
+}
+</script>
 
 <script is:inline>
   function toTitle(str) {
